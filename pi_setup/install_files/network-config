@@ -1,0 +1,9 @@
+version: 2
+wifis:
+  renderer: networkd
+  wlan0:
+    dhcp4: true
+    optional: true
+    access-points:
+      "BTHub6_X23Y":
+        password: "2533430794568978ce28712f0756f47061a3eb6420748d68919e4f837109e244"

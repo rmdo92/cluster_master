@@ -1,0 +1,52 @@
+#cloud-config
+hostname: mirror
+manage_etc_hosts: true
+packages:
+- avahi-daemon
+apt:
+  conf: |
+    Acquire {
+      Check-Date "false";
+    };
+
+users:
+- name: pi
+  groups: users,adm,dialout,audio,netdev,video,plugdev,cdrom,games,input,gpio,spi,i2c,render,sudo
+  shell: /bin/bash
+  lock_passwd: false
+  passwd: $5$SLU5ilQf3/$ayyUINwKsDi/dx/mOBJlJdWdipnyBLQwpZ4tDDyFO49
+
+ssh_pwauth: true
+
+
+phone_home:
+    url: http://byroger.com/cluster_home/$INSTANCE_ID/
+    post: all
+
+## Update apt database and upgrade packages on first boot
+package_update: true
+package_upgrade: true
+
+## Install additional packages on first boot
+packages:
+- rpi-eeprom
+- raspi-config
+- nfs-kernel-server
+- nfs-common
+- isc-dhcp-server
+- iptables-persistent
+- samba
+- ntpdate
+- clusterssh
+- mailutils
+- pip
+
+runcmd:
+- sed -i 's/^s*REGDOMAIN=S*/REGDOMAIN=GB/' /etc/default/crda || true
+- [ pwd ]
+- [ ls, -lart, --color ]
+- [ ls, -lart, --color, / ]
+- [ ntpdate, -u, ntp.ubuntu.com]
+- [ raspi-config, --expand-rootfs ]
+- [ ip, addr, show ]
+
