@@ -14,7 +14,8 @@ users:
   groups: users,adm,dialout,audio,netdev,video,plugdev,cdrom,games,input,gpio,spi,i2c,render,sudo
   shell: /bin/bash
   lock_passwd: false
-  passwd: $5$SLU5ilQf3/$ayyUINwKsDi/dx/mOBJlJdWdipnyBLQwpZ4tDDyFO49
+  password: roger
+##  passwd: $5$SLU5ilQf3/$ayyUINwKsDi/dx/mOBJlJdWdipnyBLQwpZ4tDDyFO49
 
 ssh_pwauth: true
 
@@ -40,6 +41,8 @@ packages:
 - clusterssh
 - mailutils
 - pip
+- docker
+- ubuntu-desktop
 
 runcmd:
 - sed -i 's/^s*REGDOMAIN=S*/REGDOMAIN=GB/' /etc/default/crda || true
